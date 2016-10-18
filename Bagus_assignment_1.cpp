@@ -1,8 +1,11 @@
+// Win32Project1.cpp : Defines the entry point for the console application.
+//
 /*Vincent Alexander Seliang
 *CS02
 *2001585562*/
 
 #include <iostream>
+#include <iterator>
 #include <fstream>
 #include <cstdlib>
 #include <cstdio>
@@ -16,10 +19,10 @@
 #include <iomanip>
 #include <algorithm>
 #include <vector>
-#include <array>
 #include <cctype>
 
 using namespace std;
+
 
 void FunctionOne()
 {
@@ -38,7 +41,9 @@ void FunctionOne()
 	for (int i = 0; i < 2; i++)
 	{
 		getline(cin, Movie[i].ssTitle);
+		cin.ignore();
 		getline(cin, Movie[i].ssDirector);
+		cin.ignore();
 		cin >> Movie[i].snYearReleased;
 		cin >> Movie[i].snDuration;
 
@@ -70,7 +75,9 @@ void FunctionTwo()
 	for (int i = 0; i < 2; i++)
 	{
 		getline(cin, Movie[i].ssTitle);
+		cin.ignore();
 		getline(cin, Movie[i].ssDirector);
+		cin.ignore();
 		cin >> Movie[i].snYearReleased;
 		cin >> Movie[i].snDuration;
 		cin >> Movie[i].snCost;
@@ -95,18 +102,6 @@ void FunctionThree()
 		int snSecondQuarter;
 		int snThirdQuarter;
 		int snFourthQuarter;
-		int snSum;
-		int snAverage;
-		int snTotalAnnual(int FirstQuarter, int SecondQuarter, int ThirdQuarter, int FourthQuarter)
-		{
-			snSum = FirstQuarter + SecondQuarter + ThirdQuarter + FourthQuarter;
-			return snSum;
-		}
-		int snAverageQuarter(int Sum)
-		{
-			snAverage = snSum / 4;
-			return snAverage;
-		}
 	};
 
 	Company TheCompany;
@@ -134,8 +129,8 @@ void FunctionThree()
 		return;
 	}
 
-	int nSum = TheCompany.snTotalAnnual(TheCompany.snFirstQuarter, TheCompany.snSecondQuarter, TheCompany.snThirdQuarter, TheCompany.snFourthQuarter);
-	int nAverage = TheCompany.snAverageQuarter(nSum);
+	int nSum = TheCompany.snFirstQuarter + TheCompany.snSecondQuarter + TheCompany.snThirdQuarter + TheCompany.snFourthQuarter;
+	int nAverage = nSum / 4;
 
 	cout << "The total sales is $" << nSum << endl;
 	cout << "The average sales is $" << nAverage << endl;
@@ -150,11 +145,6 @@ void FunctionFour()
 		int snMaxTemp;
 		int snMinTemp;
 		int snAverage;
-		int snAverageTemp(int Max, int Min)
-		{
-			snAverage = (snMaxTemp + snMinTemp) / 2;
-			return snAverage;
-		}
 	};
 
 	Weather TheWeather[12];
@@ -184,7 +174,7 @@ void FunctionFour()
 			return;
 		}
 		cout << "Average temperature:" << endl;
-		TheWeather[i].snAverageTemp(TheWeather[i].snMaxTemp, TheWeather[i].snMinTemp);
+		int nAverage = (TheWeather[i].snMaxTemp + TheWeather[i].snMinTemp) / 2;
 	}
 	return;
 }
@@ -204,6 +194,7 @@ void FunctionFive()
 	{
 		cout << "Enter the player's name" << endl;
 		getline(cin, players[i].ssPlayerName);
+		cin.ignore();
 		cout << "Enter the player's number" << endl;
 		cin >> players[i].snPlayerNumber;
 		if (players[i].snPlayerNumber < 0)
@@ -229,9 +220,18 @@ void FunctionFive()
 
 	cout << "The total score is " << nAccumulator << endl;
 
-	int nSize = sizeof(players) / sizeof(players[0]);
-	int nMaxDistance = distance(players, max_element(players, players + nSize));
-	cout << players[nMaxDistance].ssPlayerName << ", number " << players[nMaxDistance].snPlayerNumber << " has the highest score." << endl;
+    int temp = 0;
+    int nCounter = 0;
+    for(int x = 0; x < 5; x++)
+    {
+        if(players[x].snScore > temp)
+        {
+             temp = players[x].snScore;\
+             nCounter++;
+        }
+    }
+	
+	cout << players[nCounter].ssPlayerName << ", number " << players[nCounter].snPlayerNumber << " has the highest score." << endl;
 	return;
 }
 
@@ -254,6 +254,7 @@ void FunctionSix()
 	{
 		cout << "Enter the person's name" << endl;
 		getline(cin, people[i].ssName);
+		cin.ignore();
 		if (people[i].ssName.compare(sEmpty) == 0)
 		{
 			cout << "Terminating program..." << endl;
@@ -261,6 +262,7 @@ void FunctionSix()
 		}
 		cout << "Enter the person's city" << endl;
 		getline(cin, people[i].ssCity);
+		cin.ignore();
 		if (people[i].ssCity.compare(sEmpty) == 0)
 		{
 			cout << "Terminating program..." << endl;
@@ -268,6 +270,7 @@ void FunctionSix()
 		}
 		cout << "Enter the person's phone number" << endl;
 		getline(cin, people[i].ssTelephone);
+		cin.ignore();
 		if (people[i].ssTelephone.compare(sEmpty) == 0)
 		{
 			cout << "Terminating program..." << endl;
@@ -323,6 +326,7 @@ void FunctionSeven()
 	{
 		cout << "Enter the person's name" << endl;
 		getline(cin, people[i].ssName);
+		cin.ignore();
 		if (people[i].ssName.compare(sEmpty) == 0)
 		{
 			cout << "Terminating program..." << endl;
@@ -330,6 +334,7 @@ void FunctionSeven()
 		}
 		cout << "Enter the person's city" << endl;
 		getline(cin, people[i].ssCity);
+		cin.ignore();
 		if (people[i].ssCity.compare(sEmpty) == 0)
 		{
 			cout << "Terminating program..." << endl;
@@ -337,6 +342,7 @@ void FunctionSeven()
 		}
 		cout << "Enter the person's phone number" << endl;
 		getline(cin, people[i].ssTelephone);
+		cin.ignore();
 		if (people[i].ssTelephone.compare(sEmpty) == 0)
 		{
 			cout << "Terminating program..." << endl;
@@ -395,6 +401,7 @@ void FunctionEight()
 	{
 		cout << "Enter the person's name" << endl;
 		getline(cin, Speaker[i].ssName);
+		cin.ignore();
 		if (Speaker[i].ssName.compare(sEmpty) == 0)
 		{
 			cout << "Terminating program..." << endl;
@@ -402,6 +409,7 @@ void FunctionEight()
 		}
 		cout << "Enter the person's phone number" << endl;
 		getline(cin, Speaker[i].ssTelephone);
+		cin.ignore();
 		if (Speaker[i].ssTelephone.compare(sEmpty) == 0)
 		{
 			cout << "Terminating program..." << endl;
@@ -409,6 +417,7 @@ void FunctionEight()
 		}
 		cout << "Enter the person's topic" << endl;
 		getline(cin, Speaker[i].ssTopic);
+		cin.ignore();
 		if (Speaker[i].ssTelephone.compare(sEmpty) == 0)
 		{
 			cout << "Terminating program..." << endl;
@@ -461,6 +470,7 @@ void FunctionNine()
 	{
 		cout << "Enter the person's name" << endl;
 		getline(cin, Speaker[i].ssName);
+		cin.ignore();
 		if (Speaker[i].ssName.compare(sEmpty) == 0)
 		{
 			cout << "Terminating program..." << endl;
@@ -468,6 +478,7 @@ void FunctionNine()
 		}
 		cout << "Enter the person's phone number" << endl;
 		getline(cin, Speaker[i].ssTelephone);
+		cin.ignore();
 		if (Speaker[i].ssTelephone.compare(sEmpty) == 0)
 		{
 			cout << "Terminating program..." << endl;
@@ -475,6 +486,7 @@ void FunctionNine()
 		}
 		cout << "Enter the person's topic" << endl;
 		getline(cin, Speaker[i].ssTopic);
+		cin.ignore();
 		if (Speaker[i].ssTelephone.compare(sEmpty) == 0)
 		{
 			cout << "Terminating program..." << endl;
@@ -493,6 +505,7 @@ void FunctionNine()
 
 	cout << "Input the topic" << endl;
 	getline(cin, sTopic);
+	cin.ignore();
 
 	for (int x = 0; x < 10; x++)
 	{
@@ -536,11 +549,6 @@ void FunctionTen()
 		int snMaxTemp;
 		int snMinTemp;
 		int snAverage;
-		int snAverageTemp(int Max, int Min)
-		{
-			snAverage = (snMaxTemp + snMinTemp) / 2;
-			return snAverage;
-		}
 	};
 
 	Months month;
@@ -571,14 +579,13 @@ void FunctionTen()
 			return;
 		}
 		cout << "Average temperature:" << endl;
-		TheWeather[month].snAverageTemp(TheWeather[month].snMaxTemp, TheWeather[month].snMinTemp);
+		int nAverage = (TheWeather[month].snMaxTemp + TheWeather[month].snMinTemp) / 2;
 	}
 	return;
 }
 
 int main()
 {
-	srand(time(NULL));
 	int nChoices;
 	cout << "Please choose between 1 to 24 to see the function." << endl;
 	cin >> nChoices;
